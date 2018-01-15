@@ -11,7 +11,6 @@ class App extends Component {
       location: '',
       image: ''
     }
-
   }
 
   fetchData() {
