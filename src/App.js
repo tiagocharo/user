@@ -14,9 +14,6 @@ class App extends Component {
 
   }
 
-  componentWillMount() {
-    
-  }
   fetchData() {
     
     fetch(`https://api.github.com/users/${this.refs.textInput.value}`)
