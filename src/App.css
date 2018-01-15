@@ -1,0 +1,31 @@
+.App {
+  text-align: center;
+}
+
+.side {
+  float: left;
+  width: 50%;
+  padding-top: 5%;
+}
+.side img {
+  height: 200px;
+  border-radius: 50%;
+}
+.side p {
+  text-align: left;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
