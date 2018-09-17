@@ -2,9 +2,16 @@
   text-align: center;
 }
 
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 50%;
+  margin: 0 auto 50px;
+
+}
+
 .side {
-  float: left;
-  width: 50%;
   padding-top: 5%;
 }
 .side img {
@@ -28,4 +35,17 @@
 
 .App-intro {
   font-size: large;
+}
+
+.repos {
+  max-width: 50%;
+  margin: 0 auto 50px;
+}
+
+.repos ul {
+  text-align: left;
+}
+.repos ul li a {
+  color: #222;
+  line-height: 22px;
 }

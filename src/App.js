@@ -6,10 +6,9 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      name: '',
-      bio: '',
-      location: '',
-      image: ''
+      profile: {},
+      repos: [],
+      isOk: false
     }
 
   }
@@ -18,14 +17,28 @@ class App extends Component {
     
     fetch(`https://api.github.com/users/${this.refs.textInput.value}`)
       .then( response => response.json())
-      .then( response => 
+      .then( response => {
           this.setState({
-            name: response.name,
-            bio: response.bio,
-            location: response.location,
-            image: response.avatar_url
+            profile: {
+              name: response.name,
+              bio: response.bio,
+              location: response.location,
+              image: response.avatar_url
+            }
           })
+        }
       )
+      .then(() => {
+        fetch('https://api.github.com/users/tiagocharo/repos')
+        .then(response => response.json())
+        .then(response => {
+          console.log(response)
+          this.setState({
+            repos: response,
+            isOk: true
+          })
+        })
+      })
   }
 
   render() {
@@ -38,20 +51,34 @@ class App extends Component {
             ref='textInput' 
             type='text' 
             placeholder='Search your user' />
-
           <input 
             type='submit' 
             value='Search'
             onClick={this.fetchData.bind(this)} />
         </header>
-
-        <div className='side'>
-            <img src={this.state.image} />
+        <div className="flex">
+          <div className='side'>
+              <img src={this.state.profile.image} />
+          </div>
+          <div className='side'>
+              <p>{this.state.profile.name}</p>
+              <p>{this.state.profile.bio}</p>
+              <p>{this.state.profile.location}</p>
+          </div>
         </div>
-        <div className='side'>
-            <p>{this.state.name}</p>
-            <p>{this.state.bio}</p>
-            <p>{this.state.location}</p>
+        <div className="repos">
+            <h2>{this.state.isOk ? 'Repositories' : ''}</h2>
+            <ul>
+              {
+                this.state.repos.map(item => {
+                  return (
+                    <li key={item.id}>
+                      <a href={item.html_url} target="_blank">{item.url}</a>
+                    </li>
+                  )
+                })
+              }
+            </ul>
         </div>
       </div>
     );
