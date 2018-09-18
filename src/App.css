@@ -49,3 +49,19 @@
   color: #222;
   line-height: 22px;
 }
+
+@media all and (max-width: 768px) {
+  .flex {
+    display: block;
+  }
+
+  .flex .side p {
+    text-align: center;
+  }
+  .repos {
+    max-width: 100%;
+  }
+  .repos ul li {
+    font-size: 12px;
+  }
+}

@@ -13,32 +13,26 @@ class App extends Component {
 
   }
 
-  fetchData() {
+  async fetchData() {
     
-    fetch(`https://api.github.com/users/${this.refs.textInput.value}`)
-      .then( response => response.json())
-      .then( response => {
-          this.setState({
-            profile: {
-              name: response.name,
-              bio: response.bio,
-              location: response.location,
-              image: response.avatar_url
-            }
-          })
-        }
-      )
-      .then(() => {
-        fetch('https://api.github.com/users/tiagocharo/repos')
-        .then(response => response.json())
-        .then(response => {
-          console.log(response)
-          this.setState({
-            repos: response,
-            isOk: true
-          })
+    const response = await fetch(`https://api.github.com/users/${this.refs.textInput.value}`);
+    const result = await response.json();
+    this.setState({
+      profile: {
+        name: result.name,
+        bio: result.bio,
+        location: result.location,
+        image: result.avatar_url,
+        url: result.repos_url
+      }
+    }, async () => {
+      const repos = await fetch(this.state.profile.url);
+      const resultRepos = await repos.json();
+        this.setState({
+          repos: resultRepos,
+          isOk: true
         })
-      })
+    })
   }
 
   render() {
